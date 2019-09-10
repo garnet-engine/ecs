@@ -1,0 +1,7 @@
+name: garnet-ecs
+description: Garnet engine entity component system framework, with actions
+version: 1.0.0
+crystal: 0.30.0
+license: MIT
+authors:
+  - Stephen Belanger <admin@stephenbelanger.com>
