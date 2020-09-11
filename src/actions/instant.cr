@@ -1,5 +1,5 @@
 abstract class Garnet::Actions::Instant < Garnet::Action
-  getter? done = false
+  getter? done : Bool = false
 
   def start
   end

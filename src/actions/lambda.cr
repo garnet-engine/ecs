@@ -1,5 +1,5 @@
 class Garnet::Actions::Lambda < Garnet::Action
-  property? done = false
+  property? done : Bool = false
 
   def initialize (&block : Float32 ->)
     @block = block

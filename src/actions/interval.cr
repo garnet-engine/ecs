@@ -8,7 +8,7 @@ abstract class Garnet::Actions::Interval < Garnet::Action
   def start
   end
 
-  def done?
+  def done? : Bool
     @elapsed >= @duration
   end
 

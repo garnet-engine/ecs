@@ -5,6 +5,11 @@ include Garnet
 
 struct TestComponent < Component
 end
+struct TestComponentB < Component
+  getter :b
+  def initialize(@b : String)
+  end
+end
 
 describe Entity do
   context "components" do
@@ -14,6 +19,20 @@ describe Entity do
         component = TestComponent.new
         entity << component
         entity[TestComponent].should eq(component)
+      end
+
+      it "should differentiate similarly derived components" do
+        entity = Entity.new
+        a = TestComponent.new
+        b = TestComponentB.new "b"
+        entity << a
+        entity << b
+        entity[TestComponent]?.should eq(a)
+        entity[TestComponentB]?.should eq(b)
+
+        if foo = entity[TestComponentB]?
+          foo.b.should eq("b")
+        end
       end
 
       it "should not find absent component" do
@@ -128,16 +147,22 @@ describe Entity do
       it "should trigger update" do
         world = Entity.new
 
+        order = [] of Int32
         called = 0
-        world << Systems::Lambda.new do |entity, delta_time|
+        world << Systems::Lambda.new(100) do |entity, delta_time|
+          order << 1
           called += 1
           entity.should eq(world)
           delta_time.should eq(1)
+        end
+        world << Systems::Lambda.new(10) do |entity, delta_time|
+          order << 2
         end
 
         called.should eq(0)
         world.update(1)
         called.should eq(1)
+        order.should eq([2, 1])
       end
     end
   end

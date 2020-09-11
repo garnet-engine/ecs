@@ -1,0 +1,14 @@
+name: Crystal CI
+on: [push, pull_request]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    container:
+      image: crystallang/crystal
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install dependencies
+        run: shards install
+      - name: Crystal Spec
+        run: crystal spec

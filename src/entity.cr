@@ -1,31 +1,20 @@
+require "./priority-queue"
+require "./action"
+require "./component"
+require "./system"
+
 class Garnet::Entity
   include Indexable(Entity)
 
-  getter components = {} of Component.class => Component
+  getter components = {} of Symbol => Component
   getter children = [] of Entity
   getter actions = [] of Action
-  getter systems = [] of System
+  getter systems = PriorityQueue(System).new
   property? dead = false
 
   # Components
   def <<(component : Component)
-    components[component.class] = component
-  end
-
-  def [](component : Component.class)
-    components[component]
-  end
-
-  def []?(component : Component.class)
-    components[component]?
-  end
-
-  def delete(component : Component)
-    components.delete(component.class)
-  end
-
-  def delete(component : Component.class)
-    components.delete(component)
+    components[component.class.to_sym] = component
   end
 
   # Actions
@@ -63,10 +52,6 @@ class Garnet::Entity
     children.size
   end
 
-  def all_with_component(component : Component.class)
-    children.select { |e| e[component]? }
-  end
-
   def kill!
     @dead = true
   end
@@ -75,9 +60,9 @@ class Garnet::Entity
     children.each &.update(delta_time)
     children.reject! &.dead?
 
-    systems.each &.update(self, delta_time)
-
     actions.each &.update_wrapped(delta_time)
     actions.reject! &.done?
+
+    systems.each &.update(self, delta_time)
   end
 end

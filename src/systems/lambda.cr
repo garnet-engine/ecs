@@ -1,5 +1,12 @@
 class Garnet::Systems::Lambda < Garnet::System
-  def initialize (&block : (Entity, Float32) ->)
+  property priority : Int32
+
+  def initialize(&block : (Entity, Float32) ->)
+    @priority = 0
+    @block = block
+  end
+
+  def initialize(@priority : Int, &block : (Entity, Float32) ->)
     @block = block
   end
 
