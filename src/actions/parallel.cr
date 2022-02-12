@@ -1,3 +1,5 @@
+require "./interval"
+
 class Garnet::Actions::Parallel < Garnet::Actions::Interval
   def initialize(@actions : Array(Action))
     super(@actions.map(&.duration).max)

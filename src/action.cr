@@ -12,10 +12,4 @@ abstract class Garnet::Action
   end
 end
 
-require "./actions/instant"
-require "./actions/interval"
-require "./actions/delay"
-require "./actions/kill"
-require "./actions/lambda"
-require "./actions/parallel"
-require "./actions/sequence"
+require "./actions/**"

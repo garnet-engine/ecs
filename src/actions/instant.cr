@@ -1,3 +1,5 @@
+require "../action"
+
 abstract class Garnet::Actions::Instant < Garnet::Action
   getter? done : Bool = false
 

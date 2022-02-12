@@ -1,13 +1,12 @@
 require "./priority-queue"
+require "./entity"
 
 abstract class Garnet::System
   include Comparable(System)
 
-  abstract def update(entity : Entity, delta_time : Float32)
+  property priority : Int32 = 0
 
-  def priority : Int32
-    0
-  end
+  abstract def update(entity : Entity, delta_time : Float32)
 
   def <=>(item)
     priority <=> item.priority

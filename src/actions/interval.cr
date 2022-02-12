@@ -1,3 +1,5 @@
+require "../action"
+
 abstract class Garnet::Actions::Interval < Garnet::Action
   getter duration : Float32
   getter elapsed : Float32 = 0_f32

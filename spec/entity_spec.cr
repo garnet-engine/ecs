@@ -149,15 +149,19 @@ describe Entity do
 
         order = [] of Int32
         called = 0
-        world << Systems::Lambda.new(100) do |entity, delta_time|
+        l1 = Systems::Lambda.new do |entity, delta_time|
           order << 1
           called += 1
           entity.should eq(world)
           delta_time.should eq(1)
         end
-        world << Systems::Lambda.new(10) do |entity, delta_time|
+        l1.priority = 100
+        world << l1
+        l2 = Systems::Lambda.new do |entity, delta_time|
           order << 2
         end
+        l2.priority = 10
+        world << l2
 
         called.should eq(0)
         world.update(1)

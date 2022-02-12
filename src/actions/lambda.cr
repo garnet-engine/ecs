@@ -1,3 +1,5 @@
+require "../action"
+
 class Garnet::Actions::Lambda < Garnet::Action
   property? done : Bool = false
 

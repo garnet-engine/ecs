@@ -1,3 +1,5 @@
+require "./entity"
+
 abstract struct Garnet::Component
   macro inherited
     def self.to_sym

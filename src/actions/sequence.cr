@@ -1,3 +1,5 @@
+require "./interval"
+
 class Garnet::Actions::Sequence < Garnet::Actions::Interval
   def initialize(@actions : Array(Action))
     super(@actions.sum(&.duration))
